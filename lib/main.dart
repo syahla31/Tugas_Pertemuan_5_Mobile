@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         title: 'Namer App',
         theme: ThemeData(
           useMaterial3: true,
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.lightBlue),
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.purpleAccent),
         ),
         home: MyHomePage(),
       ),
@@ -33,6 +33,7 @@ class MyAppState extends ChangeNotifier {
     notifyListeners();
   }
 
+  // ↓ Add the code below.
   var favorites = <WordPair>[];
 
   void toggleFavorite() {
@@ -59,8 +60,10 @@ class _MyHomePageState extends State<MyHomePage> {
     switch (selectedIndex) {
       case 0:
         page = GeneratorPage();
+        break;
       case 1:
         page = FavoritesPage();
+        break;
       default:
         throw UnimplementedError('no widget for $selectedIndex');
     }
@@ -71,7 +74,7 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SafeArea(
               child: NavigationRail(
-                extended: constraints.maxWidth >= 600,
+                extended: constraints.maxWidth >= 600, // ← Here.
                 destinations: [
                   NavigationRailDestination(
                     icon: Icon(Icons.home),
@@ -166,6 +169,8 @@ class BigCard extends StatelessWidget {
       color: theme.colorScheme.primary,
       child: Padding(
         padding: const EdgeInsets.all(20),
+
+        // ↓ Make the following change.
         child: Text(
           pair.asLowerCase,
           style: style,
